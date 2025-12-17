@@ -50,7 +50,7 @@ pub const Card = struct {
 
         // Draw border
         sub.setStyle(self.style.setFg(Color.fromRGB(150, 150, 170)));
-        
+
         // Top
         sub.moveCursor(0, 0);
         sub.putString(chars.top_left);
@@ -101,7 +101,7 @@ pub const Card = struct {
         // Footer
         if (self.footer) |footer| {
             const footer_y = sub.height - self.padding - 2;
-            
+
             // Separator
             sub.setStyle(self.style.setFg(Color.fromRGB(100, 100, 120)));
             sub.moveCursor(1, footer_y);

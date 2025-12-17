@@ -224,13 +224,13 @@ test "Pagination creation" {
 
 test "Pagination navigation" {
     var pagination = Pagination.init(5);
-    
+
     try std.testing.expect(pagination.nextPage());
     try std.testing.expectEqual(@as(usize, 2), pagination.current_page);
-    
+
     try std.testing.expect(pagination.previousPage());
     try std.testing.expectEqual(@as(usize, 1), pagination.current_page);
-    
+
     try std.testing.expect(!pagination.previousPage());
 }
 
@@ -238,7 +238,7 @@ test "Pagination set page" {
     var pagination = Pagination.init(10);
     pagination.setPage(5);
     try std.testing.expectEqual(@as(usize, 5), pagination.current_page);
-    
+
     pagination.setPage(20);
     try std.testing.expectEqual(@as(usize, 5), pagination.current_page);
 }

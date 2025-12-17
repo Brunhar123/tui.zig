@@ -39,7 +39,7 @@ pub const TreeView = struct {
         if (y.* >= sub.height) return;
 
         const is_selected = index.* == self.selected;
-        
+
         // Indentation
         sub.moveCursor(0, y.*);
         for (0..node.level) |_| {

@@ -1,7 +1,7 @@
 const tui = @import("tui");
 
 const Left = struct {
-    pub fn render( ctx: *tui.RenderContext) void {
+    pub fn render(ctx: *tui.RenderContext) void {
         var sub = ctx.getSubScreen();
         sub.clear();
         sub.putStringAt(0, 0, "Left pane");
@@ -9,7 +9,7 @@ const Left = struct {
 };
 
 const Right = struct {
-    pub fn render( ctx: *tui.RenderContext) void {
+    pub fn render(ctx: *tui.RenderContext) void {
         var sub = ctx.getSubScreen();
         sub.clear();
         sub.putStringAt(0, 0, "Right pane");

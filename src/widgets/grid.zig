@@ -30,7 +30,7 @@ pub const Grid = struct {
     pub fn getCellBounds(self: *Grid, cell: GridCell, total_width: u16, total_height: u16) layout.Rect {
         const cell_width = total_width / @as(u16, @intCast(self.cols));
         const cell_height = total_height / @as(u16, @intCast(self.rows));
-        
+
         return .{
             .x = @intCast(cell.col * cell_width + self.gap),
             .y = @intCast(cell.row * cell_height + self.gap),

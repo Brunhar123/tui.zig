@@ -30,7 +30,7 @@ pub const Image = struct {
 
     pub fn render(self: *Image, ctx: *widget.RenderContext) void {
         var sub = ctx.getSubScreen();
-        
+
         switch (self.protocol) {
             .kitty => self.renderKitty(&sub),
             .iterm2 => self.renderITerm2(&sub),
@@ -42,14 +42,14 @@ pub const Image = struct {
     fn renderKitty(self: *Image, sub: anytype) void {
         // Kitty graphics protocol: https://sw.kovidgoyal.net/kitty/graphics-protocol/
         // Format: \x1b_G<control data>;<payload>\x1b\\
-        
+
         // Move cursor to position
         sub.moveCursor(0, 0);
-        
+
         // Base64 encode image data
         var buf: [8192]u8 = undefined;
         const encoded = std.base64.standard.Encoder.encode(&buf, self.data);
-        
+
         // Send Kitty graphics command
         // a=T: transmit, f=24: RGB format, s=width, v=height
         var cmd_buf: [256]u8 = undefined;
@@ -58,20 +58,20 @@ pub const Image = struct {
             self.height,
             encoded,
         }) catch return;
-        
+
         sub.putString(cmd);
     }
 
     fn renderITerm2(self: *Image, sub: anytype) void {
         // iTerm2 inline images: https://iterm2.com/documentation-images.html
         // Format: \x1b]1337;File=inline=1;width=<w>;height=<h>:<base64>\x07
-        
+
         sub.moveCursor(0, 0);
-        
+
         // Base64 encode image data
         var buf: [8192]u8 = undefined;
         const encoded = std.base64.standard.Encoder.encode(&buf, self.data);
-        
+
         // Send iTerm2 image command
         var cmd_buf: [256]u8 = undefined;
         const cmd = std.fmt.bufPrint(&cmd_buf, "\x1b]1337;File=inline=1;width={d};height={d}:{s}\x07", .{
@@ -79,19 +79,19 @@ pub const Image = struct {
             self.height,
             encoded,
         }) catch return;
-        
+
         sub.putString(cmd);
     }
 
     fn renderSixel(self: *Image, sub: anytype) void {
         // Sixel graphics: https://en.wikipedia.org/wiki/Sixel
         // Format: \x1bP<params>q<sixel data>\x1b\\
-        
+
         sub.moveCursor(0, 0);
-        
+
         // Start sixel sequence
         sub.putString("\x1bPq");
-        
+
         // Define color palette (simplified grayscale)
         for (0..256) |i| {
             var color_buf: [32]u8 = undefined;
@@ -103,13 +103,13 @@ pub const Image = struct {
             }) catch continue;
             sub.putString(color_cmd);
         }
-        
+
         // Render image data as sixels (6 pixels per character)
         var y: usize = 0;
         while (y < self.height) : (y += 6) {
             for (0..self.width) |x| {
                 if (x >= self.data.len) break;
-                
+
                 var sixel: u8 = 0;
                 for (0..6) |dy| {
                     if (y + dy >= self.height) break;
@@ -118,13 +118,13 @@ pub const Image = struct {
                         sixel |= @as(u8, 1) << @intCast(dy);
                     }
                 }
-                
+
                 // Output sixel character (offset by 63)
                 sub.putChar(@as(u8, 63 + sixel));
             }
             sub.putString("$-"); // Carriage return and line feed
         }
-        
+
         // End sixel sequence
         sub.putString("\x1b\\");
     }
@@ -136,7 +136,7 @@ pub const Image = struct {
                 const idx = (y * self.width + x) % self.data.len;
                 const brightness = self.data[idx];
                 const char_idx = @min(brightness / 26, chars.len - 1);
-                
+
                 sub.moveCursor(@intCast(x), @intCast(y));
                 sub.putChar(chars[char_idx]);
             }

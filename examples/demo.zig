@@ -1,7 +1,7 @@
 const tui = @import("tui");
 
 const Demo = struct {
-    pub fn render( ctx: *tui.RenderContext) void {
+    pub fn render(ctx: *tui.RenderContext) void {
         var sub = ctx.getSubScreen();
         sub.clear();
         sub.putStringAt(0, 0, "TUI.zig Demo\n\nExamples available in the examples/ directory. Use the demo runner to start them individually.");

@@ -37,13 +37,13 @@ pub const RadioGroup = struct {
 
     pub fn render(self: *RadioGroup, ctx: *widget.RenderContext) void {
         var sub = ctx.getSubScreen();
-        
+
         for (self.options, 0..) |option, i| {
             const y: u16 = @intCast(i);
             if (y >= sub.height) break;
 
             sub.moveCursor(0, y);
-            
+
             if (i == self.selected) {
                 sub.setStyle(self.style.setFg(Color.green).bold());
                 sub.putString("(•) ");
@@ -51,7 +51,7 @@ pub const RadioGroup = struct {
                 sub.setStyle(self.style.setFg(Color.fromRGB(150, 150, 150)));
                 sub.putString("( ) ");
             }
-            
+
             sub.setStyle(self.style);
             sub.putString(option.label);
         }

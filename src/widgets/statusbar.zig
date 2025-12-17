@@ -21,7 +21,7 @@ pub const Statusbar = struct {
 
     pub fn render(self: *Statusbar, ctx: *widget.RenderContext) void {
         var sub = ctx.getSubScreen();
-        
+
         sub.setStyle(self.style.setBg(Color.fromRGB(40, 42, 54)).setFg(Color.white));
         for (0..sub.width) |x| {
             sub.moveCursor(@intCast(x), 0);
@@ -35,7 +35,7 @@ pub const Statusbar = struct {
                 .center => (sub.width -| text_len) / 2,
                 .right => sub.width -| text_len - 2,
             };
-            
+
             sub.moveCursor(x, 0);
             sub.putString(item.text);
         }

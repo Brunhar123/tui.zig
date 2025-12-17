@@ -51,7 +51,7 @@ pub const Badge = struct {
 
         sub.setStyle(Style.default.setBg(colors.bg).setFg(colors.fg).bold());
         sub.moveCursor(0, 0);
-        
+
         for (0..padding) |_| sub.putChar(' ');
         sub.putString(self.text);
         for (0..padding) |_| sub.putChar(' ');

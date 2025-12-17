@@ -51,7 +51,7 @@ pub const Accordion = struct {
             if (y >= sub.height) break;
 
             const is_selected = i == self.selected;
-            
+
             sub.moveCursor(0, y);
             if (is_selected) {
                 sub.setStyle(self.style.bold().setFg(Color.cyan));
@@ -165,11 +165,11 @@ test "Accordion expand collapse" {
         .{ .title = "Test", .content = "Content" },
     };
     var accordion = Accordion.init(&items);
-    
+
     try std.testing.expect(!items[0].expanded);
     accordion.expand(0);
     try std.testing.expect(items[0].expanded);
-    
+
     accordion.collapse(0);
     try std.testing.expect(!items[0].expanded);
 }

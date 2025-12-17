@@ -64,7 +64,7 @@ pub const Skeleton = struct {
                     shimmer_color
                 else
                     base_color;
-                
+
                 sub.setStyle(Style.default.setBg(color));
                 sub.putChar(' ');
             }
@@ -90,7 +90,7 @@ pub const Skeleton = struct {
                         shimmer_color
                     else
                         base_color;
-                    
+
                     sub.setStyle(Style.default.setBg(color));
                     sub.putChar(' ');
                 } else {
@@ -111,7 +111,7 @@ pub const Skeleton = struct {
                     shimmer_color
                 else
                     base_color;
-                
+
                 sub.setStyle(Style.default.setBg(color));
                 sub.putChar(' ');
             }
@@ -120,9 +120,9 @@ pub const Skeleton = struct {
 
     fn isShimmerPosition(self: *Skeleton, x: u16) bool {
         const shimmer_width: u16 = 5;
-        const start = if (self.animation_offset >= shimmer_width) 
-            self.animation_offset - shimmer_width 
-        else 
+        const start = if (self.animation_offset >= shimmer_width)
+            self.animation_offset - shimmer_width
+        else
             0;
         const end = self.animation_offset;
         return x >= start and x <= end;

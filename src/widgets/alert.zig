@@ -75,7 +75,7 @@ pub const Alert = struct {
         // Message
         sub.moveCursor(2, 2);
         sub.setStyle(Style.default.setBg(colors.bg).setFg(colors.fg));
-        
+
         var remaining = self.message;
         var y: u16 = 2;
         while (remaining.len > 0 and y < sub.height) {
@@ -91,8 +91,9 @@ pub const Alert = struct {
         if (!self.dismissible or !self.visible) return .ignored;
 
         if (event == .key) {
-            if (event.key.key == .escape or 
-               (event.key.key == .char and (event.key.key.char == 'x' or event.key.key.char == 'X'))) {
+            if (event.key.key == .escape or
+                (event.key.key == .char and (event.key.key.char == 'x' or event.key.key.char == 'X')))
+            {
                 self.dismiss();
                 return .needs_redraw;
             }

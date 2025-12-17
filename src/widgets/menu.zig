@@ -38,7 +38,7 @@ pub const Menu = struct {
         if (!self.visible) return;
 
         var sub = ctx.getSubScreen();
-        
+
         // Draw menu background
         sub.setStyle(self.style.setBg(Color.fromRGB(40, 42, 54)));
         sub.fill(' ');
@@ -68,7 +68,7 @@ pub const Menu = struct {
                 }
             } else {
                 const is_selected = i == self.selected;
-                
+
                 if (is_selected) {
                     sub.setStyle(self.style.setBg(Color.fromRGB(60, 62, 74)).bold());
                 } else {
@@ -79,7 +79,7 @@ pub const Menu = struct {
                 if (!item.enabled) {
                     sub.setStyle(sub.getStyle().dim());
                 }
-                
+
                 sub.putString(item.label);
 
                 if (item.shortcut) |shortcut| {
@@ -89,7 +89,7 @@ pub const Menu = struct {
                     sub.putString(shortcut);
                 }
             }
-            
+
             y += 1;
         }
     }

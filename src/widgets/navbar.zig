@@ -31,7 +31,7 @@ pub const Navbar = struct {
 
     pub fn render(self: *Navbar, ctx: *widget.RenderContext) void {
         var sub = ctx.getSubScreen();
-        
+
         sub.setStyle(self.style.setBg(Color.fromRGB(40, 42, 54)));
         for (0..sub.width) |x| {
             sub.moveCursor(@intCast(x), 0);
@@ -48,14 +48,14 @@ pub const Navbar = struct {
 
         for (self.items, 0..) |item, i| {
             if (x >= sub.width) break;
-            
+
             sub.moveCursor(x, 0);
             if (i == self.selected) {
                 sub.setStyle(self.style.setBg(Color.cyan).setFg(Color.black).bold());
             } else {
                 sub.setStyle(self.style.setBg(Color.fromRGB(40, 42, 54)).setFg(Color.white));
             }
-            
+
             sub.putString(" ");
             if (item.icon) |icon| {
                 sub.putString(icon);
@@ -63,7 +63,7 @@ pub const Navbar = struct {
             }
             sub.putString(item.label);
             sub.putString(" ");
-            
+
             x += @as(u16, @intCast(item.label.len)) + (if (item.icon != null) 4 else 2);
         }
     }

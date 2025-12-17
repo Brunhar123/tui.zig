@@ -4,11 +4,9 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
- 
     _ = b.addModule("tui", .{
         .root_source_file = b.path("src/tui.zig"),
     });
-
 
     const lib = b.addLibrary(.{
         .name = "tui",
@@ -20,7 +18,6 @@ pub fn build(b: *std.Build) void {
         }),
     });
     b.installArtifact(lib);
-
 
     const test_mod = b.createModule(.{
         .root_source_file = b.path("src/tui.zig"),

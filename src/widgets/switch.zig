@@ -94,10 +94,10 @@ test "Switch creation" {
 test "Switch toggle" {
     var sw = Switch.init("Toggle");
     try std.testing.expect(!sw.enabled);
-    
+
     sw.toggle();
     try std.testing.expect(sw.enabled);
-    
+
     sw.toggle();
     try std.testing.expect(!sw.enabled);
 }

@@ -174,7 +174,7 @@ test "Slider value clamping" {
     var slider = Slider.init(0.0, 100.0);
     slider.setValue(150.0);
     try std.testing.expectEqual(@as(f32, 100.0), slider.value);
-    
+
     slider.setValue(-50.0);
     try std.testing.expectEqual(@as(f32, 0.0), slider.value);
 }
@@ -182,7 +182,7 @@ test "Slider value clamping" {
 test "Slider orientation" {
     const h_slider = Slider.init(0.0, 1.0).withOrientation(.horizontal);
     try std.testing.expectEqual(SliderOrientation.horizontal, h_slider.orientation);
-    
+
     const v_slider = Slider.init(0.0, 1.0).withOrientation(.vertical);
     try std.testing.expectEqual(SliderOrientation.vertical, v_slider.orientation);
 }

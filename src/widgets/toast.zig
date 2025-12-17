@@ -77,7 +77,7 @@ pub const Toast = struct {
         var sub = ctx.getSubScreen();
         const colors = self.getColors();
         const icon = self.getIcon();
-        
+
         const msg_len: u16 = @intCast(self.message.len);
         const width = msg_len + 6;
         const height: u16 = 3;
@@ -104,7 +104,7 @@ pub const Toast = struct {
         if (self.duration_ms > 0) {
             const progress = @as(f32, @floatFromInt(self.elapsed_ms)) / @as(f32, @floatFromInt(self.duration_ms));
             const bar_width = @as(u16, @intFromFloat(@as(f32, @floatFromInt(width - 2)) * (1.0 - progress)));
-            
+
             sub.setStyle(Style.default.setBg(colors.icon));
             sub.moveCursor(pos.x + 1, pos.y + height - 1);
             for (0..bar_width) |_| sub.putChar(' ');
@@ -204,11 +204,11 @@ pub const ToastManager = struct {
 test "Toast creation and visibility" {
     var toast = Toast.init("Test message");
     try std.testing.expect(!toast.visible);
-    
+
     toast.show();
     try std.testing.expect(toast.visible);
     try std.testing.expectEqual(@as(u32, 0), toast.elapsed_ms);
-    
+
     toast.hide();
     try std.testing.expect(!toast.visible);
 }
@@ -218,7 +218,7 @@ test "Toast with type and position" {
         .withType(.success)
         .withPosition(.top_center)
         .withDuration(5000);
-    
+
     try std.testing.expectEqual(ToastType.success, toast.toast_type);
     try std.testing.expectEqual(ToastPosition.top_center, toast.position);
     try std.testing.expectEqual(@as(u32, 5000), toast.duration_ms);
@@ -227,10 +227,10 @@ test "Toast with type and position" {
 test "Toast auto-dismiss" {
     var toast = Toast.init("Auto dismiss").withDuration(1000);
     toast.show();
-    
+
     toast.update(500);
     try std.testing.expect(toast.visible);
-    
+
     toast.update(600);
     try std.testing.expect(!toast.visible);
 }
